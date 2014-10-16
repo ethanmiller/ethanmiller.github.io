@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head >
+<title>E Miller _ Note : PHP Quicklink Script</title>
+<meta name="Description" content="PHP Quicklink Script - published by Ethan Miller on Jan 26, 2007 and tagged code, geek, php, yubnub">
+<link href="/media/css/emiller.css" rel="stylesheet" type="text/css" media="screen" >
+
+	<script type="text/javascript" src="/media/js/jquery.js"></script>
+	
+	 
+	<script type="text/javascript" src="/media/js/jquery.beautyOfCode.js"></script> 
+	<script type="text/javascript">
+		$.beautyOfCode.init({
+			brushes: ['Python', 'Bash', 'Perl', 'Php', 'JScript', 'Css'],
+			ready: function() {
+				$.beautyOfCode.beautifyAll();
+			}
+		});
+	</script>
+	
+
+
+	
+	
+
+</head>
+<body >
+<div id="top"><h1>Ethan Miller</h1></div>
+<div id="main">
+	<div id="sidecol">
+		<ul class="nav">
+			<li><a href="/">Home</a></li>
+			<li><a href="/notes/">News / Notes</a></li>
+		</ul>
+		<div id="license">
+		Unless otherwise noted, all work licensed under : <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"> <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" ></a></div>
+		
+	</div>
+	<div id="bigcol">
+	<h2>PHP Quicklink Script</h2>
+	<p class="note">Jan 26 2007, 12:00PM</p>
+	<p>Ok, so you may know about <a href="http://lifehacker.com/software/geek-to-live/geek-to-live-fifteen-firefox-quick-searches-129658.php">Firefox quick searches</a>, which is very nice. But keeping them updated on multiple machines, or new machines can be a pain.</p>
+
+<p>So, after using quick searches for a while, I switched to <a href="http://yubnub.org/">yubnub</a>, which does something similar, but it's a social app. With yubnub, when setting up a new machine, I just had to add yubnub as a search engine once for each new machine - and I was off and running (the sequence then would be 'ctrl+k' to get to the search bar, then 'g python regex' to do a google search for example).</p>
+
+<p>The disadvantages of yubnub are: You can only add a command if someone else hasn't already added it. Also yubnub goes down fairly frequently.</p>
+
+<p>So - here is my solution: I wrote a simple PHP script that duplicates the quick search, put it on my website, then followed <a href="http://www.oreilly.com/pub/h/3033">a tutorial</a> on how to create a custom search engine. That's it. I do have to log into my server and modify the array in that script when I want to create a new quicklink - but it's a minor inconvenience. I just install my custom search engine on any new machine I'm working on, and I have all my links available.</p>
+
+
+<pre class="code"><code class="php">
+&lt;?PHP
+
+$qlarray = array(
+	'dpop' 	=> 'http://del.icio.us/popular/%s',
+	'dt' 	=> 'http://del.icio.us/tag/%s',
+	'du'	=> 'http://del.icio.us/%s',
+	'gma' 	=> 'http://mail.google.com/mail/',
+	'gcal' 	=> 'http://www.google.com/calendar/render',
+	'g' 	=> 'http://www.google.com/search?q=%s',
+);
+
+if(array_key_exists('cmd', $_GET)){
+	$action = split(' ', $_GET['cmd'], 2);		
+	if(array_key_exists($action[0], $qlarray)){
+		$redir = $qlarray[$action[0]];
+		if(count($action) > 1){
+			// replace %s with remaind of command
+			$redir = str_replace('%s', $action[1], $redir);
+		}else{
+			// strip %s 
+			$redir = str_replace('%s', '', $redir);
+		}
+		header("Location: $redir");
+	}
+}
+?>
+</code></pre>
+
+	<p class="note">Tags : <a href="/notes/tag/code/">code</a> <a href="/notes/tag/geek/">geek</a> <a href="/notes/tag/php/">php</a> <a href="/notes/tag/yubnub/">yubnub</a> </p>
+	
+	<br clear="all">
+	<div id="disqus_thread"></div><script type="text/javascript" src="http://disqus.com/forums/ethanmiller/embed.js"></script><noscript><a href="http://ethanmiller.disqus.com/?url=ref">View the forum thread.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+	<br clear="all">
+	<div id="footer">contact : e at ethanmiller dot name</div>
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-2095896-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+
+</body>
+</html>

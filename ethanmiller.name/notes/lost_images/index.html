@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head >
+<title>E Miller _ Note : Lost Images Recovered</title>
+<meta name="Description" content="Lost Images Recovered - published by Ethan Miller on Feb 25, 2009 and tagged code, hack, linux, memory">
+<link href="/media/css/emiller.css" rel="stylesheet" type="text/css" media="screen" >
+
+	<script type="text/javascript" src="/media/js/jquery.js"></script>
+	
+	 
+	<script type="text/javascript" src="/media/js/jquery.beautyOfCode.js"></script> 
+	<script type="text/javascript">
+		$.beautyOfCode.init({
+			brushes: ['Python', 'Bash', 'Perl', 'Php', 'JScript', 'Css'],
+			ready: function() {
+				$.beautyOfCode.beautifyAll();
+			}
+		});
+	</script>
+	
+
+
+	
+	
+
+</head>
+<body >
+<div id="top"><h1>Ethan Miller</h1></div>
+<div id="main">
+	<div id="sidecol">
+		<ul class="nav">
+			<li><a href="/">Home</a></li>
+			<li><a href="/notes/">News / Notes</a></li>
+		</ul>
+		<div id="license">
+		Unless otherwise noted, all work licensed under : <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"> <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" ></a></div>
+		
+	</div>
+	<div id="bigcol">
+	<h2>Lost Images Recovered</h2>
+	<p class="note">Feb 25 2009, 2:13PM</p>
+	<p>This <a href="http://lifehacker.com/5157818/diskdigger-recovers-deleted-files">lifehacker post about a DiskDigger</a> reminded me that I wanted to document a recent close call with a bunch of photos we took on vacation.
+
+<p>I was running Ubuntu with <a href="http://www.xfce.org/">xfce</a>, and when the SD card on our camera filled up, I wanted to transfer the photos off.  Well it turns out that <a href="http://thunar.xfce.org/index.html">thunar</a> (at least my version) doesn't show a progress bar when copying files. I foolishly erased the SD card before the transfer had finished and, uh, I did it with <strong>$ rm *.JPG</strong> :(</p>
+
+<p>This tip on how to <a href="http://adminlinux.blogspot.com/2006/09/recover-from-rm.html">Recover from rm</a> got me thinking on the right track (I guess). I ran </p>
+<pre class="code"><code class="bash">$ cat /dev/mmcblk0/ > recover.db</pre>
+<p> resulting in a 2GB file (it was a 2GB SD card) that I spent the next day and a half tinkering with.</p>
+
+<p>I had some of the images from that card on hand, and using the <a href="http://www.linuxjournal.com/article/1326">octal dump</a> command: </p>
+<pre class="code"><code class="bash">$ od -x IMG_4415.JPG | head</code></pre> 
+<p>I could tell that the beginning of each image looked like this (in hexadecimal): d8ff e1ff fe35 7845 6669 0000 4949 002a</p>
+
+<p>I messed around with <a href="http://www.oreillynet.com/linux/cmd/cmd.csp?path=c/csplit">csplit</a> for a while, but I had no idea how to split on non-ascii patterns.
+
+<p>Eventually I found a perl script written by someone who had a similar problem. I can't seem to find that page again, although I know I hit this <a href="http://ask.metafilter.com/24895/Accidentally-Concatenated-Images">metafilter thread</a> along the way. The script I ended up with was:</p>
+<pre class="code"><code class="perl">
+# d8ff e1ff fe35 7845 6669 0000 4949 002a
+$sep = "\xff\xd8\xff\xe1";
+print "opening\n";
+open(F, "recover.db");
+@original = &lt;F&gt;;
+close(F);
+print "opened\n";
+$x = join "", @original;
+print "splitting\n";
+@new = split $sep, $x;
+print "splitted\n";
+$count = 1;
+
+foreach(@new){
+        print "$count\n";
+        open(F, "> recovered$count.jpg");
+        print F $sep;
+        print F $_;
+        close(F);
+        $count++;
+}
+</code>
+</pre>
+
+I got all the photos back! My route may have been circuitous, but it was an interesting ride. If you know of a more direct route please let me know...
+
+	<p class="note">Tags : <a href="/notes/tag/code/">code</a> <a href="/notes/tag/hack/">hack</a> <a href="/notes/tag/linux/">linux</a> <a href="/notes/tag/memory/">memory</a> </p>
+	
+	<br clear="all">
+	<div id="disqus_thread"></div><script type="text/javascript" src="http://disqus.com/forums/ethanmiller/embed.js"></script><noscript><a href="http://ethanmiller.disqus.com/?url=ref">View the forum thread.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+	<br clear="all">
+	<div id="footer">contact : e at ethanmiller dot name</div>
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-2095896-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+
+</body>
+</html>

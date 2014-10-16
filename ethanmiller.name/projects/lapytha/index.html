@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head >
+<title> E Miller  _ Project :  Lapytha</title>
+<meta name="Description" content="Lapytha : A project by Ethan Miller documented in April 2005">
+<link href="/media/css/emiller.css" rel="stylesheet" type="text/css" media="screen" >
+
+	<script type="text/javascript" src="/media/js/jquery.js"></script>
+	<script type="text/javascript" src="/media/js/thickbox.js"></script>
+
+
+	<link href="/media/css/thickbox.css" rel="stylesheet" type="text/css" media="screen" >
+
+</head>
+<body >
+<div id="top"><h1>Ethan Miller</h1></div>
+<div id="main">
+	<div id="sidecol">
+		<ul class="nav">
+			<li><a href="/">Home</a></li>
+			<li><a href="/notes/">News / Notes</a></li>
+		</ul>
+		<div id="license">
+		Unless otherwise noted, all work licensed under : <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"> <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" ></a></div>
+		
+	</div>
+	<div id="bigcol">
+	<h2>Lapytha</h2>
+	<p class="note">April, 2005</p>
+	
+	<p>Lapytha is an environment for open ended interactions among characters and objects. Initially nothing exists in the environment. Users begin by creating actors, then specifying actions the actors should take. As the game progresses, more actors and objects are available for players to interact with. Users will be able to specify conditional actions (i.e. If x is true, take action y). As the game progresses the web of interactions will become more and more dense, creating complex emergent patterns of interactions among the inhabitants of Lapytha.</p>
+
+<p><h2>Inspiration</h2></p>
+
+<p>One of the first inspirations are the <a href="http://www.louisville.edu/~mshess01/surr_games.html">surrealist games</a>. It is hoped that players will play the game without excessive planning, or forethought. Players should be able to throw out the first thing that comes to mind. In this environment, however, the first thing that comes to mind takes shape (as code) and survives to interact with other player/actors independent of the original author.</p>
+
+<p><h2>Gameplay</h2></p>
+
+<p>The current version of the game is played through a text only interface. The goal is to allow as much natural language interaction as possible. For example, if the user types "The farmer drives the truck," the software will pick out "The farmer," and "the truck," and create code objects representing them. Those actors then become available for future interactions. Actions described by players will require further explanation. For example, if the user enters "The cat eats the fish," the software will ask "what happens to the fish, when the cat eats the fish?" The user might reply "The fish is gone." As understood in code, gone is simply an attribute of the actor fish. Other players will then be able to build on these attributes. The next player may specify "If the fish is gone, the fisherman goes home."</p>
+
+<p>Certain commands are available for practical purposes. "List actors" for example provides a quick reference for the actors in a given game. A legend of such commands will be available.</p>
+
+<p><h2>Visualization</h2></p>
+
+<p>The visualization provides a larger view of the interactions taking place. Actors are represented with icons, with lines indicating interactions.</p>
+
+<p><h2>Code</h2></p>
+
+<p><a href="http://pyopengl.sourceforge.net/">PyOpenGL</a> was used for the visualization. <a href="http://web.media.mit.edu/~hugo/montylingua/">MontyLingua</a> was used for natural language processing. Here are <a href="http://static.ethanmiller.name/lapytha/Lapytha_Python.zip">the Lapytha Python files</a>.</p>
+	<div id="imglist">
+		<h3>Images</h3>
+		<ul>
+		
+		<li><a class="thickbox" title="Lapytha" href="http://ethanmiller.name/media/images/uploaded/lapytha.jpg"><img alt="Lapytha text and visualization" src="http://ethanmiller.name/media/images/uploaded/thumbs/lapytha.jpg"/></a></li>
+		
+		</ul>
+	</div>
+</div>
+	<br clear="all">
+	<div id="footer">contact : e at ethanmiller dot name</div>
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-2095896-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+
+</body>
+</html>

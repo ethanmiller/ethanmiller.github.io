@@ -1,0 +1,166 @@
+body {
+	background-color:#FFFFEE;
+	font-size:0.8em;
+	font-family:verdana, sans-serif;
+	margin:0;
+	padding:0;
+	text-align:center;
+}
+div#top{
+	background-color:#444;
+	padding:10px;
+	text-align:right;
+	background-image:url(/media/images/quad.gif);
+	background-repeat:no-repeat;
+	background-position:15px 15px;
+}
+div#top h1{
+	color:#CCC;
+	font-weight:normal;
+	padding-right:15px;
+	margin:0px;
+}
+div#main{
+	margin:0 auto;
+	width:850px;
+	text-align:left;
+}
+div#bigcol{
+	width:605px;
+	float:left;
+	border-right:1px solid #444;
+	padding-right:5px;
+}
+div#imglist{
+	width:300px;
+	padding-right:10px;
+	float:right;
+}
+div#activity ul{
+	list-style-type:none;
+	margin-left:0px;
+	padding-left:0px;
+}
+div#activity li{
+}
+div#imglist ul{
+	padding-left:0px;
+	list-style-type:none;
+	float:left;
+}
+div#imglist h3{
+	font-size:1.0em;
+}
+div#homeimg{
+	padding-top:10px;
+}
+div#sidecol{
+	width:230px;
+	float:right;
+	padding-left:5px;
+}
+ul.nav{
+	padding-left:0px;
+	font-size:1.5em;
+	list-style-type:none;
+}
+img{
+	border:0px;
+}
+a{
+	color:#6868BA;
+	text-decoration:none;
+}
+a:hover{
+	text-decoration:underline;
+}
+h1 a, h2 a, h3 a{
+	color:#333;
+}
+div#badges{
+	text-align:center;
+	margin-top:10px;
+}
+div#license{
+	font-size:0.75em;
+	text-align:center;
+	padding:5px;
+	background-color:#EED;
+}
+div#license img{
+	margin-top:5px;
+}
+div#newscol{
+	width:590px;
+	margin-right:10px;
+}
+div#projcol{
+	width:590px;
+	float:left;
+
+}
+p.noteintro{
+	color:#666;
+	border:1px solid #CCC;
+	padding:3px;
+}
+p.note{
+	color:#888;
+}
+a.cont{
+	font-size:0.8em;
+}
+span.mini{
+	font-size:0.8em;
+	color:#555;
+}
+h1, h2, h3{
+	color:#333;
+}
+div#footer{
+	text-align:center;
+	background-color:#EED;
+}
+/* resume */
+div#resume{
+}
+div.sectionsummary{
+}
+div.item{
+}
+div.itemdate{
+	width:150px;
+	background-color:#EED;
+	float:left;
+	padding:3px;
+}
+div.itemsummary{
+	width:680px;
+	float:right;
+	padding:0px 3px 3px 3px;
+}
+div.itemsummary p{
+	margin:0px 0px 5px 0px;
+}
+div.itemsummary ul{
+	padding-left:20px;
+}
+div#resume_types{
+	margin-top:10px;
+}
+div#resume_types a{
+	padding:5px;
+	border:1px solid #EED;
+}
+div.tech a.tech, div.art a.art, div.comb a.comb{
+	background-color:#FFF;
+	font-weight:bold;
+}
+a.cvprojlink{
+	font-size:0.8em;
+}
+pre.code{
+	background-color:#333;
+	color:#EEE;
+	padding:10px;
+}

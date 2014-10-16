@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content="HTML Tidy for Linux/x86 (vers 12 April 2005), see www.w3.org">
+  <title>Code Sketch 0</title>
+  <link type="text/css" rel="stylesheet" href="css/SyntaxHighlighter.css"></link>
+  <script language="javascript" src="js/jquery.js"></script>
+  <script language="javascript" src="js/shCore.js"></script>
+  <script language="javascript" src="js/shBrushPython.js"></script>
+  <script language="javascript" src="js/shBrushXml.js"></script>
+  <script language="javascript">
+  	$(document).ready(function(){
+  		dp.SyntaxHighlighter.ClipboardSwf = 'clipboard.swf';
+  		dp.SyntaxHighlighter.HighlightAll('code');
+	});
+  </script>
+</head>
+<body>
+<pre name="code" class="py">
+#!/usr/bin/env python
+import ImageChops
+from PIL import Image
+
+chunksize = 50
+
+def main():
+	img = Image.open("base.jpg")
+	img = img.convert('RGBA')
+	width_steps = img.size[0] // chunksize
+	height_steps = img.size[1] // chunksize
+	cx, cy = img.size[0] // 2, img.size[1] // 2
+	# background img
+	base_image = ImageChops.duplicate(img)
+	# load pixel dat
+	pixels = img.load()
+	for xstep in range(width_steps):
+		for ystep in range(height_steps):
+			x, y = xstep*chunksize, ystep*chunksize
+			# pixel info
+			px = pixels[x, y]
+			# cut out a chunk
+			chunk = img.crop((x, y, x+chunksize, y+chunksize))
+			chunk.load()
+			base_image.paste(chunk.rotate(px[2], expand=1), (x + px[0], y + px[1]))
+
+	base_image.save("out.png")
+
+if __name__ == '__main__':
+	main()
+</pre>
+</body>
+</html>

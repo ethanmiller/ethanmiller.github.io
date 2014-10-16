@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<html>
+<head>
+  <meta name="generator" content="HTML Tidy for Linux/x86 (vers 12 April 2005), see www.w3.org">
+  <title>Code Sketch 0</title>
+  <link type="text/css" rel="stylesheet" href="css/SyntaxHighlighter.css"></link>
+  <script language="javascript" src="js/jquery.js"></script>
+  <script language="javascript" src="js/shCore.js"></script>
+  <script language="javascript" src="js/shBrushPython.js"></script>
+  <script language="javascript" src="js/shBrushXml.js"></script>
+  <script language="javascript">
+  	$(document).ready(function(){
+  		dp.SyntaxHighlighter.ClipboardSwf = 'clipboard.swf';
+  		dp.SyntaxHighlighter.HighlightAll('code');
+	});
+  </script>
+</head>
+<body>
+<pre name="code" class="py">
+#!/usr/bin/env python
+import operator
+from PIL import Image, ImageStat
+
+chunk_ct = 32
+
+class col_chunk:
+	def __init__(self, col, chk):
+		self.col = col
+		self.chk = chk
+
+def main():
+	img = Image.open("base.jpg")
+	chunk_hsize = img.size[0] // chunk_ct
+	chunk_vsize = img.size[1] // chunk_ct
+	chunks_by_col = []
+	hpos, vpos = (0, 0)
+	# collect chunks
+	while vpos + chunk_vsize &lt; img.size[1]:
+		while hpos + chunk_hsize &lt; img.size[0]:
+			chk = img.crop((hpos, vpos, hpos + chunk_hsize, vpos + chunk_vsize))
+			chk.load()
+			stats = ImageStat.Stat(chk)
+			chunks_by_col.append(col_chunk(tuple(stats.median), chk))
+			hpos = hpos + chunk_hsize
+		else:
+			hpos = 0
+			vpos = vpos + chunk_vsize
+	# sort, then rebuild image
+	chunks_by_col.sort(key=operator.attrgetter('col'))
+	hpos, vpos = (0, 0)
+	for c in chunks_by_col:
+		img.paste(c.chk, (hpos, vpos))
+		# paste the key colors as well
+		col = Image.new('RGB', (chunk_hsize // 4, chunk_vsize), c.col) 
+		img.paste(col, (hpos, vpos))
+		hpos = hpos + chunk_hsize
+		if hpos + chunk_hsize &gt; img.size[0]:
+			hpos = 0
+			vpos = vpos + chunk_vsize
+
+	img.save("out.png")
+
+if __name__ == '__main__':
+	main()
+</pre>
+</body>
+</html>

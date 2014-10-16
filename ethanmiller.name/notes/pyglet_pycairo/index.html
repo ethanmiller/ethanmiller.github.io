@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head >
+<title>E Miller _ Note : Pyglet + PyCairo &#39;Hello World&#39;</title>
+<meta name="Description" content="Pyglet + PyCairo &#39;Hello World&#39; - published by Ethan Miller on Feb 22, 2008 and tagged code, pycairo, pyglet, python">
+<link href="/media/css/emiller.css" rel="stylesheet" type="text/css" media="screen" >
+
+	<script type="text/javascript" src="/media/js/jquery.js"></script>
+	
+	 
+	<script type="text/javascript" src="/media/js/jquery.beautyOfCode.js"></script> 
+	<script type="text/javascript">
+		$.beautyOfCode.init({
+			brushes: ['Python', 'Bash', 'Perl', 'Php', 'JScript', 'Css'],
+			ready: function() {
+				$.beautyOfCode.beautifyAll();
+			}
+		});
+	</script>
+	
+
+
+	
+	
+
+</head>
+<body >
+<div id="top"><h1>Ethan Miller</h1></div>
+<div id="main">
+	<div id="sidecol">
+		<ul class="nav">
+			<li><a href="/">Home</a></li>
+			<li><a href="/notes/">News / Notes</a></li>
+		</ul>
+		<div id="license">
+		Unless otherwise noted, all work licensed under : <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"> <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" ></a></div>
+		
+	</div>
+	<div id="bigcol">
+	<h2>Pyglet + PyCairo 'Hello World'</h2>
+	<p class="note">Feb 22 2008, 4:10PM</p>
+	<p>I've been excited about using <a href="http://www.pyglet.org/">Pyglet</a> for  all it's nice timing/windowing/event handling. And then I got excited about the nice graphics programming from <a href="http://www.tortall.net/mu/wiki/CairoTutorial">PyCairo</a>.</p><p>I couldn't find any examples of the two combined, so, with the help of <a href="http://www.pygame.org/wiki/CairoPygame">this PyGame example</a> I munged the following together. Just posting in case it helps someone else... we'll see where all this takes me...</p>
+
+<pre class="code"><code class="python">
+import cairo, cStringIO
+from pyglet import font, window, image
+w, h = 400, 400
+rot = 0.04
+# pyglet
+win = window.Window(width=w, height=h)
+ft = font.load('Arial', 36)
+text = font.Text(ft, 'Hello, World!')
+# cairo
+surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, w, h)
+ctx = cairo.Context(surface)
+ctx.translate(200, 200)
+
+while not win.has_exit:
+        # cairo
+        ctx.rotate(rot)
+        # clear to black
+        ctx.set_source_rgb(0, 0, 0)
+        ctx.paint()
+        # lifted from pycairo example...
+        ctx.set_line_width(15)
+        ctx.set_source_rgb(255, 0, 0)
+        ctx.move_to(0, -100)
+        ctx.line_to(100, 100)
+        ctx.rel_line_to(-200, 0)
+        ctx.close_path()
+        ctx.stroke()
+        # output to file-like obj
+        f = cStringIO.StringIO()
+        surface.write_to_png(f)
+        # rewind
+        f.seek(0)
+        # load
+        pic = image.load('hint.png', file=f)
+        #pyglet
+        win.dispatch_events()
+        win.clear()
+        pic.blit(0, 0)
+        text.draw()
+        win.flip()
+</code></pre>
+
+<p>[7/28/08 edit] A <a href="http://groups.google.com/group/pyglet-users/browse_thread/thread/2762204fc00bfaac">discussion on the pyglet-users list</a> comments on my code, and includes a better solution.</p>
+
+	<p class="note">Tags : <a href="/notes/tag/code/">code</a> <a href="/notes/tag/pycairo/">pycairo</a> <a href="/notes/tag/pyglet/">pyglet</a> <a href="/notes/tag/python/">python</a> </p>
+	
+	<br clear="all">
+	<div id="disqus_thread"></div><script type="text/javascript" src="http://disqus.com/forums/ethanmiller/embed.js"></script><noscript><a href="http://ethanmiller.disqus.com/?url=ref">View the forum thread.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+	<br clear="all">
+	<div id="footer">contact : e at ethanmiller dot name</div>
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-2095896-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+
+</body>
+</html>

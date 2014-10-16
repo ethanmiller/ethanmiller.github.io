@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head >
+<title>E Miller _ Note : Test Server Puzzle</title>
+<meta name="Description" content="Test Server Puzzle - published by Ethan Miller on Feb 2, 2011 and tagged hudson, kvm, puppet">
+<link href="/media/css/emiller.css" rel="stylesheet" type="text/css" media="screen" >
+
+	<script type="text/javascript" src="/media/js/jquery.js"></script>
+	 <script type="text/javascript" src="/media/js/thickbox.js"></script> 
+	
+
+
+	
+	<link href="/media/css/thickbox.css" rel="stylesheet" type="text/css" media="screen" >
+	
+	
+
+</head>
+<body >
+<div id="top"><h1>Ethan Miller</h1></div>
+<div id="main">
+	<div id="sidecol">
+		<ul class="nav">
+			<li><a href="/">Home</a></li>
+			<li><a href="/notes/">News / Notes</a></li>
+		</ul>
+		<div id="license">
+		Unless otherwise noted, all work licensed under : <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"> <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" ></a></div>
+		
+	</div>
+	<div id="bigcol">
+	<h2>Test Server Puzzle</h2>
+	<p class="note">Feb 2 2011, 11:14PM</p>
+	<p> I recently had the opportunity to rebuild our test server system for QA testing at work, and I found a few solutions that I thought worth sharing. The finished system centers around a custom console for reserving test servers, launching repository checkouts and/or database reloads, and viewing a short history of configurations for that server. See the screenshot below.</p>
+<h2>The Need</h2>
+<p>For the last 6 months plus we had been running no more than 4 test servers on an old machine without hardware virtualization support. Any attempt to run a 5th virtual server would likely wedge the machine. This was by no means sufficient for QA needs. The first step was getting a new host machine (we went with a Dell PowerEdge R610). Next was choosing the toolset. I started with <a href="http://www.linux-kvm.org/page/Main_Page">KVM</a>, got a base CentOS image running with the <a href="http://www.cyberciti.biz/faq/kvm-virt-install-install-freebsd-centos-guest/">virt-install command</a>, and moved on to puppet mastering.</p>
+<h2>Puppet configuration management</h2>
+<p><a href="http://www.puppetlabs.com/">Puppet</a> has been a huge win for us in general over the last several months. In particular, with the 4 test servers on the old system I was already hopelessly out of sync with the configurations (they should have been identical systems). I already had most of the package configuration written for other application environments - it took just a little tweaking and node regular expressions to get 90% of the configuration set for all of the new servers.</p>
+<p>Our stack is basically Linux, Apache/mod_wsgi, Django, virtualenvs and Postgres. Puppet now manages just about all of that and quite a bit more. The only pieces I didn't feel I could manage through Puppet were repository checkouts, and the settings files that are server and application specific: apache.conf, wsgi and the django settings file.</p>
+<h2>Database</h2>
+<p>We have large databases. We are working on scripts to trim those down to smaller QA sets, but for the time being we test on full copies. On the old test servers, getting a fresh database meant an scp for the dmp file, and then a pg_restore. For our largest DB this process was known to take nearly two hours. With the new setup I opted for a separate, non-virtualized db host. I had already seen that copydb with the --template flag was much faster than a pg_restore. In addition I reasoned that since the virtual test servers wouldn't have an abundance of RAM (1GB each) it would be more efficient to let a dedicated machine handle the databases.</p>
+<p>We now have one nightly job that transfers the dmp file from our backups, and runs pg_restore. For the rest of the day copies of those databases are made on the database server as needed. The "base" databases can't be used normally - that's the one caveat to the "copydb" plan. They just sit there to support copying.</p>
+<h2>The Console</h2>
+<p>My design process was completely centered on "the console," and what would be ideal to have there in support of developer and QA needs. It runs on the virtual server host - and I made an effort to make it as lean as I could. It consists of a <a href="http://webpy.org/">web.py</a> script (served by apache/cgi) with Python pickles for storage, and a front end built with <a href="http://documentcloud.github.com/backbone/">Backbone</a> and <a href="http://mustache.github.com/">Mustache</a>. The web.py script has very limited access to virsh commands on the backend (currently just 'list' to get the names and status of each virtual machine), and basically only serves JSON (plus the initial HTML page that links to javascript and CSS files).</p>
+<p>There are two "external" jobs that support our test servers. One is the nightly job that runs scp and pg_restore. The second job is touched off by developers at the console. They choose the app, the repository path, and either a DB load, a code checkout, or both (see the screenshots below). The "build" job has to function within a queue to avoid the problem of two developers trying to copy the same "base" DB at the same time.</p>
+<p>The supporting scripts for the "build" job are the bash script on the DB server that runs copydb, another bash script on the virtual test server that runs the svn checkout, and a python script on the virtual test server that uses Django templates to render configuration files (apache conf, wsgi file, and django settings). I thought using Django templating made a lot of sense: Django has to be on all the servers to support our apps, and developers are already well familiar with django templates in general.</p>
+<h2>A step in the right direction</h2>
+<p>We're all still excited about the new test servers because they're such an improvement. The job that used to take two hours now takes 20 minutes (including a full repository checkout). As of today I've got 15 of them running, and I have room to grow. Once we exceed the capacity of the one host server, I'm not sure how I'll adapt the system. That may be the moment to jump onto the <a href="http://www.openstack.org/">OpenStack</a> wagon (which is where I nearly started).</p>
+<p>On the whole it was a lot of fun, and I learned a lot. I'd be interested to hear how others addressed these problems as well, or suggestions on how to improve what I've got.</p>
+
+	<p class="note">Tags : <a href="/notes/tag/hudson/">hudson</a> <a href="/notes/tag/kvm/">kvm</a> <a href="/notes/tag/puppet/">puppet</a> </p>
+	
+	<div id="imglist">
+		<h3>Image</h3>
+		<ul>
+		
+		<li><a class="thickbox" title="Test Server Console 1" href="http://ethanmiller.name/media/images/uploaded/console1.png"><img alt="Test Server Console" src="http://ethanmiller.name/media/images/uploaded/thumbs/console1.png"/></a></li>
+		
+		<li><a class="thickbox" title="Test Server Console 2" href="http://ethanmiller.name/media/images/uploaded/console2.png"><img alt="Test Server Console" src="http://ethanmiller.name/media/images/uploaded/thumbs/console2.png"/></a></li>
+		
+		</ul>
+	</div>
+	
+	<br clear="all">
+	<div id="disqus_thread"></div><script type="text/javascript" src="http://disqus.com/forums/ethanmiller/embed.js"></script><noscript><a href="http://ethanmiller.disqus.com/?url=ref">View the forum thread.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+	<br clear="all">
+	<div id="footer">contact : e at ethanmiller dot name</div>
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-2095896-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+
+</body>
+</html>

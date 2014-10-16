@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head >
+<title>E Miller _ Note : Cronline (Cron visualization)</title>
+<meta name="Description" content="Cronline (Cron visualization) - published by Ethan Miller on Aug 10, 2011 and tagged crontab, visualization">
+<link href="/media/css/emiller.css" rel="stylesheet" type="text/css" media="screen" >
+
+	<script type="text/javascript" src="/media/js/jquery.js"></script>
+	 <script type="text/javascript" src="/media/js/thickbox.js"></script> 
+	
+
+
+	
+	<link href="/media/css/thickbox.css" rel="stylesheet" type="text/css" media="screen" >
+	
+	
+
+</head>
+<body >
+<div id="top"><h1>Ethan Miller</h1></div>
+<div id="main">
+	<div id="sidecol">
+		<ul class="nav">
+			<li><a href="/">Home</a></li>
+			<li><a href="/notes/">News / Notes</a></li>
+		</ul>
+		<div id="license">
+		Unless otherwise noted, all work licensed under : <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"> <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" ></a></div>
+		
+	</div>
+	<div id="bigcol">
+	<h2>Cronline (Cron visualization)</h2>
+	<p class="note">Aug 10 2011, 9:06AM</p>
+	<p>I recently hacked up a project I'm calling 'Cronline' and I'm hoping to get some feedback on further development.</p>
+<h2>Motivation</h2>
+<p>We run a large number of crontab scripts on different systems, under different user accounts. We see the mail that results from most jobs, and get reports when errors occur. We have a general sense of how long each script takes.</p>
+
+<p>That said, it's a fairly opaque system. The goal of cronline is too pull all that activity into one <em>timeline</em> to see clearly how long jobs are taking, and which jobs end up running simultaneously.</p>
+
+<p>There has also been a suggestion to exercise some control over cron scripts as a whole - ie maintenance-mode that would prevent all scripts from running - this is certainly possible with the system as I've laid it out - but I'm not sure it should be part of the same project.</p>
+<h2>Current Implementation</h2>
+<p>I have a working implementation as follows:</p>
+<ol>
+<li>A simple bash script that stores the start datetime, then runs <strong>$*</strong> (all arguments given to the script as a command), then logs the <em>[command] '&lt;start datetime&gt;' '&lt;end datetime&gt;'</em>. Currently logs by username (eg. /var/local/cronline/bob.log)</li>
+<li>A modification to any given crontab in which a job <em>mycmd arg1 arg2</em> is replaced with <em>/usr/local/bin/cronline mycmd arg1 arg2</em></li>
+<li>A simple python script that runs through the cronline logs, and spits out a JSON file suitable for use with <a href="http://www.simile-widgets.org/timeline/">Simile Timeline</a>. The script currently just takes 2 arguments: The log file, and a color to distinguish different user crontab jobs.</li>
+<li>A simple directory structure with the Simile Timeline project, and a directory for the JSON output of the python script. It's served up by Apache (see screenshot below).</li>
+</ol>
+<h2>Desired Features and Fixes</h2>
+<p>I should probably fix:</p>
+<ul><li>Why the intermediary python processing? It could just produce the JSON directly... That's true, but that would make it harder to implement on a distrubted system (see the next bullet)</li>
+<li>Use standard system logging: As above, if the bash script used system logging, it could be used in combination with <a href="http://www.rsyslog.com/">rsyslog</a> to aggregate logs onto one system, which would then run the python script to produce the finished JSON.</li>
+<li>Capture exit code for each job, and color-code that into the final timeline</li>
+<li>Capture additional stats (<em>time</em> for example can capture CPU% and Avg Memory use)</li>
+<li>Timespans under 10 min should just be a singular event (no end date so that it renders as a dot)</li>
+<li>Logrotate-type action on the JSON output - and possibly some way to go back to an archive. The accumulated JSON data will get too large pretty quick.</li>
+<li>Improve Simile Timeline integration: Currently I'm manually editing the javascript to load each new js file I know to be available.</li>
+</ul>
+<h2>Questions</h2>
+<p>Would this be useful to you?</p><p>Any suggestions on how to structure this?</p><p>Any other suggestions?</p>
+
+	<p class="note">Tags : <a href="/notes/tag/crontab/">crontab</a> <a href="/notes/tag/visualization/">visualization</a> </p>
+	
+	<div id="imglist">
+		<h3>Image</h3>
+		<ul>
+		
+		<li><a class="thickbox" title="Cronline" href="http://ethanmiller.name/media/images/uploaded/cronline00.png"><img alt="Cronline screenshot" src="http://ethanmiller.name/media/images/uploaded/thumbs/cronline00.png"/></a></li>
+		
+		</ul>
+	</div>
+	
+	<br clear="all">
+	<div id="disqus_thread"></div><script type="text/javascript" src="http://disqus.com/forums/ethanmiller/embed.js"></script><noscript><a href="http://ethanmiller.disqus.com/?url=ref">View the forum thread.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+	<br clear="all">
+	<div id="footer">contact : e at ethanmiller dot name</div>
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-2095896-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head >
+<title>E Miller _ Note : Appengine and handle_entity</title>
+<meta name="Description" content="Appengine and handle_entity - published by Ethan Miller on Jun 17, 2009 and tagged appengine, code">
+<link href="/media/css/emiller.css" rel="stylesheet" type="text/css" media="screen" >
+
+	<script type="text/javascript" src="/media/js/jquery.js"></script>
+	
+	 
+	<script type="text/javascript" src="/media/js/jquery.beautyOfCode.js"></script> 
+	<script type="text/javascript">
+		$.beautyOfCode.init({
+			brushes: ['Python', 'Bash', 'Perl', 'Php', 'JScript', 'Css'],
+			ready: function() {
+				$.beautyOfCode.beautifyAll();
+			}
+		});
+	</script>
+	
+
+
+	
+	
+
+</head>
+<body >
+<div id="top"><h1>Ethan Miller</h1></div>
+<div id="main">
+	<div id="sidecol">
+		<ul class="nav">
+			<li><a href="/">Home</a></li>
+			<li><a href="/notes/">News / Notes</a></li>
+		</ul>
+		<div id="license">
+		Unless otherwise noted, all work licensed under : <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"> <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" ></a></div>
+		
+	</div>
+	<div id="bigcol">
+	<h2>Appengine and handle_entity</h2>
+	<p class="note">Jun 17 2009, 12:52AM</p>
+	<p>Just spent a frustrating evening with Google AppEngine - and I want to document the problem I had in case it helps others.</p>
+
+<p>I wanted to upload data to AppEngine from a CSV file - however the values in said file needed some adjustments (they don't directly correspond to the fields in the table I have, and some are ReferenceProperty fields). The <a href="http://code.google.com/appengine/docs/python/tools/uploadingdata.html">AppEngine documentation on uploading data</a> says nothing about overriding handle_entity to deal with these requirements.</p>
+
+<p>I found <a href="http://www.wooji-juice.com/blog/appengine-bulkloader.html">a couple</a> <a href="http://amandastea.wordpress.com/2009/05/26/google-app-engine-uploadding-data-tutorial/">of pages</a> that appeared to be what I needed. They document how to override HandleEntity() in your loader class. I spent ages futzing with this. It wasn't until I looked in the SDK source code that I realized the function to override is called handle_entity()! There is an alias_old_names() in there you can call - but who knew?</p>
+
+<p>For the record, I'm using <strong>Release 1.2.2</strong> of the AppEngine SDK</p>
+
+<p>Here is what my loader class looks like now:</p>
+
+<pre class="code">
+<code class="python">
+import datetime, os, sys
+# 'sources' and 'models' down there are not on the python path
+curr_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
+sys.path = ['/'.join(curr_path.split('/')[:-1])] + sys.path
+
+from google.appengine.ext import db
+from google.appengine.tools import bulkloader
+from sources import cct
+from models import Label, cctRegion, cctVariable, Record
+
+class RecordLoader(bulkloader.Loader):
+    def __init__(self):
+        bulkloader.Loader.__init__(self, 'Record', 
+                                   [('variable', str), 
+                                    ('var_type', str),
+                                    ('region', str), 
+                                    ('year', int),
+                                    ('month', int),
+                                    ('quantity', float)])
+    def handle_entity(self, entity):
+        kname = ''.join([entity.region, entity.variable, 
+                         str(entity.year), str(entity.month)])
+        if Record.get_by_key_name(kname):
+            return
+        cct.support_classes() # needed classes exist in db
+        q = entity.quantity
+        dt = datetime.datetime(entity.year, entity.month, 1)
+        label = Label.all().filter('name = ', 'cct').get()
+        variable = cctVariable.all().filter('short_name = ', entity.variable).get()
+        region = cctRegion.all().filter('short_name = ', entity.region).get()
+        # reset the entity here to avoid 
+        # unneeded attributes, and set keyname
+        entity = Record(key_name=kname)
+        entity.label = label.key()
+        entity.variable = variable.key()
+        entity.region = region.key()
+        entity.time = dt
+        entity.quantity = q
+        return entity
+
+loaders = [RecordLoader]
+</code>
+</pre>
+
+	<p class="note">Tags : <a href="/notes/tag/appengine/">appengine</a> <a href="/notes/tag/code/">code</a> </p>
+	
+	<br clear="all">
+	<div id="disqus_thread"></div><script type="text/javascript" src="http://disqus.com/forums/ethanmiller/embed.js"></script><noscript><a href="http://ethanmiller.disqus.com/?url=ref">View the forum thread.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+	<br clear="all">
+	<div id="footer">contact : e at ethanmiller dot name</div>
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-2095896-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+
+</body>
+</html>
