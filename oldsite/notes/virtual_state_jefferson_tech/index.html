@@ -30,7 +30,7 @@
 	<div id="sidecol">
 		<ul class="nav">
 			<li><a href="/">Home</a></li>
-			<li><a href="/notes/">News / Notes</a></li>
+			<li><a href="/oldsite/notes/">News / Notes</a></li>
 		</ul>
 		<div id="license">
 		Unless otherwise noted, all work licensed under : <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"> <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" ></a></div>
@@ -39,7 +39,7 @@
 	<div id="bigcol">
 	<h2>Virtual State of Jefferson Tech</h2>
 	<p class="note">Apr 20 2010, 10:55PM</p>
-	My collaboration with <a href="http://www.ethanham.com/">Ethan Ham</a>, <a href="/projects/virtual_state_jefferson/">Virtual State of Jefferson</a> will be going up in Ashland at the <a href="http://www.sou.edu/sma/">Schneider Museum of Art</a> next month.
+	My collaboration with <a href="http://www.ethanham.com/">Ethan Ham</a>, <a href="/oldsite/projects/virtual_state_jefferson/">Virtual State of Jefferson</a> will be going up in Ashland at the <a href="http://www.sou.edu/sma/">Schneider Museum of Art</a> next month.
 
 I wanted to describe a little about the tech work involved because I had fun, and it might be useful to others. The piece is a router running <a href="http://www.dd-wrt.com/site/index">dd-wrt</a> with an iptables rule that sends all traffic through a proxy. The proxy server is running <a href="http://www.squid-cache.org/">squid</a>, as well as <a href="http://nginx.org/">nginx</a>. Squid is configured with a redirect_program that does the following for each request:<ul><li>Skip resources that are likely not text based (images, videos, etc)</li><li>For text-based resources, grab the source and do a quick regex search for 'california', 'ca' or 'oregon'</li><li>For resources that have one of the previous, do a full regex search/replace for cities in northern California, or southern Oregon that appear next to their state name/abbreviation (resulting in "Ashland, Jefferson" instead of "Ashland, Oregon", for example)</li><li>Save the modified file on the nginx path, and transparently redirect the request to that file</li></ul>
 
@@ -67,7 +67,7 @@ $cmd
 </pre>
 
 It's fun using sys-admin skills for an art project :D                    
-	<p class="note">Tags : <a href="/notes/tag/networking/">networking</a> <a href="/notes/tag/nginx/">nginx</a> <a href="/notes/tag/proxy/">proxy</a> <a href="/notes/tag/regex/">regex</a> </p>
+	<p class="note">Tags : <a href="/oldsite/notes/tag/networking/">networking</a> <a href="/oldsite/notes/tag/nginx/">nginx</a> <a href="/oldsite/notes/tag/proxy/">proxy</a> <a href="/oldsite/notes/tag/regex/">regex</a> </p>
 	
 	<br clear="all">
 	<div id="disqus_thread"></div><script type="text/javascript" src="http://disqus.com/forums/ethanmiller/embed.js"></script><noscript><a href="http://ethanmiller.disqus.com/?url=ref">View the forum thread.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
