@@ -3,8 +3,7 @@ layout: page
 title: About
 permalink: /about/
 ---
-Daryl is an open source theme for Jekyll designed to be performant, simple, and readable.
+I make art less frequently than I'd like, but I'm trying! There was a time when I made more, and I'm trying to make use of whatever momentum that may provide.
 
-Documentation on how to use this theme is in the repo's [README](https://github.com/andrewcodes/daryl/blob/master/README.md). Jekyll usage documentation can be found at [jekyllrb.com](http://jekyllrb.com/).
+![Example Image](/assets/images/self-portrait.jpg "Example Image")
 
-If you would like to contribute to this theme, please see the [Development guidelines](https://github.com/andrewcodes/daryl/blob/master/README.md#development).
