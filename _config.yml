@@ -4,8 +4,7 @@ tagline: Art mostly
 email: ethan@leemiller.email
 description: > # this means to ignore newlines until "baseurl"
   Random things I'm making
-baseurl: "/made/" # the subpath of your site, e.g. /blog/
-source: "./made"
+baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://ethanmiller.name" # the base hostname & protocol for your site
 twitter_username: ethanmiller
 github_username:  ethanmiller
