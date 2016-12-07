@@ -49,7 +49,19 @@
 		Oct 2012
 		 - ongoing
 		</div>
-		<div class="itemsummary"><p>Eventbrite, San Francisco, CA<br /><em>Senior Systems Engineer</em><br /><ul><li>Typical responsibilities for System Engineers include: Developing (Puppet) configuration manifests, developing and watching monitoring (Nagios, Ganglia), running deployments across CDE environment (fabric based), as well as more specialized per-project work.</li><li>Supported and operationalized "Mandoline" project: This was a data analysis project based on Cassandra, MySQL and Zookeeper with a python front-end. I developed configuration for the clusters involved, including cron and supervisord based scripts to run the analysis. Considerable Cassandra work was involved, including numerous new Ganglia graphs to asses performance of the application.</li><li>Led late 2013 database failover: This was required to get our primary MySQL master over to a machine with more disk space. I analyzed dependencies across our systems and developed a run-script for the procedure from start to finish. I performed the systems administration components (stop/start daemons, configure haproxy for static maintenance page, DNS adjustment) of the failover while the DBA worked on the database.</li><li>Developed custom "Noise" graph for Nagios: A page that processes Nagios logs, and then displays the daily alerts per-cluster, and per-host as a graph. We use this to see at a glance over longer periods of time which clusters have been alerting most frequently</li><li>Operationalized blog management: We increased the number of company blogs during my first year at Eventbrite. We used to run a single blog on an a single host which also ran the database. I standardized the build/deploy, configured haproxy to split traffic amongst 2 or more blog-www servers, and configured a master-master database server pair.</li></ul></p> </div>
+		<div class="itemsummary"><p>Eventbrite, San Francisco, CA<br /><em>Senior Systems Engineer</em><br /><ul>
+				<li>One of 6 operations staff responsible for engineering infrastructure development, support and maintenance.</li>
+				<li>Managed EC2 based production/qa/stage environments using Puppet, Console, and Terraform.</li>
+				<li>Participated in on-call rotations, typically used Icinga alert info, Splunk logs (and syslog logs), Grafana graphs & Sentry captures to diagnose issues.</li>
+				<li>Mainly supported Linux/Mysql/HAProxy/Nginx/Python/Django based applications. Also provided support for numerous technologies including: Cassandra, Redis, Elasticsearch, Varnish, & others.</li>
+				<li>Participated in a number of open source projects with issue creation or patch submission as we integrated them into our environments, see https://github.com/ethan-eb</li>
+				<li>Aggressive documentation contributor, spearheaded runbook documentation with links to specific icinga alerts.</li>
+				<li>Developed a wide range of tooling, primarily in Python or shell. 
+					<ul>
+				<li>At the simpler end were tools that checked metrics for Icinga alerts, or for submission to StatsD/Graphite, or for interacting with APIs (for example DYN, NS1, Fastly APIs). </li>
+				<li>At the more complex end I developed an admin SPA for engineers to create feature flag "proposals." The tool used Mysql, Django, Backbone/Marionette and integrated with our Gargoyle based feature flags. It allowed operations staff to simply approve or deny a proposal without giving direct access to production feature flags.</li>
+				<li>Also implemented an Errbot instance for Slack including a docker profile for developers to work on their plugins independently. Developed plugins for interactions with JIRA and for reporting on feature flag changes.</li></ul></li>
+			</ul></p> </div>
 		</div>
 		
 		<br clear="all">
