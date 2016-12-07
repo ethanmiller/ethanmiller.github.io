@@ -1,21 +1,17 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head >
 <title>E Miller _ CV</title>
 <meta name="Description" content="Ethan Miller : Web Operations & Development, also Art">
 <script type="text/javascript">sopablackout_on = [2012, 1, 18];</script>
-<script type="text/javascript" src="/oldsite/media/js/sopablackout.js"></script>
-<link href="/oldsite/media/css/emiller.css" rel="stylesheet" type="text/css" media="screen" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 
 </head>
 <body >
 <div id="top"><h1>Ethan Miller</h1></div>
-<div id="main">
+<div id="main container">
 
-	<div id="resume_types" class="tech">
-		<a href="/cv/art/" class="art">Art</a> <a href="/cv/technology/" class="tech">Technology</a>
-	</div>
 	<div id="resume">
 	
 	
@@ -23,9 +19,9 @@
 		
 		
 		<div class="sectionsummary">
-		<p>Ethan Miller has been working professionally with web technology since 1999. Having spent most of those years as a developer, and then transitioning into an operations role has given him broad competencies with complete web application stacks. Concurrently Ethan pursued a degree in art and technology, which led to several code-based art projects that further broadened the scope his abilities. He has a driving curiosity and fascination with systems that keep him in a constant cycle of self-improvement.</p>
+		<p>Ethan Miller has been working professionally with web technology since 1999. Having spent most of those years as a developer, and then transitioning into an operations role has given him broad competencies with complete web application stacks. Concurrently Ethan pursued a degree in art and technology, which led to several code-based art projects that further broadened the scope his abilities. He has a driving curiosity and that keeps him in a constant cycle of self-improvement.</p>
 
-<p>Contact : <a href="mailto:&#101;&#64;&#101;&#116;&#104;&#97;&#110;&#109;&#105;l&#108;&#101;r&#46;&#110;&#97;&#109;&#101;">&#101;&#64;&#101;th&#97;&#110;&#109;&#105;&#108;&#108;&#101;&#114;&#46;&#110;&#97;m&#101;</a></p>
+<!--p>Contact : <a href="mailto:&#101;&#64;&#101;&#116;&#104;&#97;&#110;&#109;&#105;l&#108;&#101;r&#46;&#110;&#97;&#109;&#101;">&#101;&#64;&#101;th&#97;&#110;&#109;&#105;&#108;&#108;&#101;&#114;&#46;&#110;&#97;m&#101;</a></p>
 		</div>
 		
 		<br clear="all">
@@ -35,10 +31,10 @@
 		
 		
 		<div class="sectionsummary">
-		<p><strong>Programming/Scripting</strong>: Python, Bash, PHP, Javascript, CSS, Java<br /><strong>Systems, Monitoring and Configuration</strong>: Puppet, Jenkins, Nagios/Icinga, Cacti, Ganglia, Logster, <a href="https://www.redhat.com/wapps/training/certification/verify.html?certNumber=100-005-404&verify=Verify">RHCE Certified</a><br /><strong>Libraries/Packages</strong>: Apache, Nginx, Django, Supervisor, Haproxy, PostgreSQL, MySQL, Git</p>
+		<p><strong>Programming/Scripting</strong>: Python, Bash, PHP, Javascript, CSS<br /><strong>Systems, Monitoring and Configuration</strong>: Puppet, Jenkins, Nagios/Icinga, Cacti, Ganglia, Graphite, Grafana, StatsD <br /><strong>Libraries/Packages</strong>: Apache, Nginx, Django, Supervisor, Haproxy, Git</p>
 		</div>
 		
-		<br clear="all">
+		<br clear="all"-->
 		
 	
 	<h2>Professional Experience</h2>
@@ -47,16 +43,16 @@
 		<div class="item">
 		<div class="itemdate">
 		Oct 2012
-		 - ongoing
+		 - Dec 2016
 		</div>
 		<div class="itemsummary"><p>Eventbrite, San Francisco, CA<br /><em>Senior Systems Engineer</em><br /><ul>
 				<li>One of 6 operations staff responsible for engineering infrastructure development, support and maintenance.</li>
 				<li>Managed EC2 based production/qa/stage environments using Puppet, Console, and Terraform.</li>
 				<li>Participated in on-call rotations, typically used Icinga alert info, Splunk logs (and syslog logs), Grafana graphs & Sentry captures to diagnose issues.</li>
-				<li>Mainly supported Linux/Mysql/HAProxy/Nginx/Python/Django based applications. Also provided support for numerous technologies including: Cassandra, Redis, Elasticsearch, Varnish, & others.</li>
+				<li>Mainly supported Linux/Mysql/HAProxy/Nginx/Python/Django based applications. Also provided support for numerous other technologies including: Cassandra, Redis, Elasticsearch, Varnish, & others.</li>
 				<li>Participated in a number of open source projects with issue creation or patch submission as we integrated them into our environments, see https://github.com/ethan-eb</li>
 				<li>Aggressive documentation contributor, spearheaded runbook documentation with links to specific icinga alerts.</li>
-				<li>Developed a wide range of tooling, primarily in Python or shell. 
+				<li>Developed a wide range of tooling, primarily in Python or Bash. 
 					<ul>
 				<li>At the simpler end were tools that checked metrics for Icinga alerts, or for submission to StatsD/Graphite, or for interacting with APIs (for example DYN, NS1, Fastly APIs). </li>
 				<li>At the more complex end I developed an admin SPA for engineers to create feature flag "proposals." The tool used Mysql, Django, Backbone/Marionette and integrated with our Gargoyle based feature flags. It allowed operations staff to simply approve or deny a proposal without giving direct access to production feature flags.</li>
@@ -72,7 +68,7 @@
 		Jun 2009
 		 - Sep 2012
 		</div>
-		<div class="itemsummary"><p>Energy Solutions, Oakland CA<br /><em>Senior Software Engineer</em><br /><ul><li>Primary systems administrator for production and in-house servers (3 Linux distributions, approximately 30 servers)</li> <li>Managed Maintenance and Operations project planning and budgeting to support multiple online applications.  </li><li>Automated deployments across multiple production servers using Rundeck and bash scripts.</li><li>Created a pre-configured virtual appliance (Vagrant-like) as development environment for development staff</li> <li>Designed and implemented a <a href="/oldsite/notes/test_server_puzzle/">test server deployment system</a> in support of QA testing</li>  <li>Managed group security audit, created Policy/Standards document, and led security brown-bag for staff education.</li> <li>Configured and maintained networked backups with RSnapshot</li> <li>Monitored health of multiple systems using Nagios, Cacti, Munin, and Unix utilities</li> <li>Configured and maintained department DNS server </li> <li>Installed Jenkins, and scripted application integration for various jobs (DB deployments, queued long-running tasks, etc.)</li> <li>Contractor coordination and direction</li>  </li><li>Coordinated regular systems architecture discussion for development staff.</li><li>Released OSS <a href="/oldsite/notes/jquery_simplemultiselect/">javascript project</a> to web development community.</li> <li>Regular contributor to multiple codebases, both Django/Postgres and PHP/MySQL based.</li> </ul></p> </div>
+		<div class="itemsummary"><p>Energy Solutions, Oakland CA<br /><em>Senior Software Engineer</em><br /><ul><li>Primary systems administrator for production and in-house servers (3 Linux distributions, approximately 30 servers)</li> <li>Managed Maintenance and Operations project planning and budgeting to support multiple online applications.  </li><li>Automated deployments across multiple production servers using Rundeck and bash scripts.</li><li>Created a pre-configured virtual appliance (Vagrant-like) as development environment for development staff</li> <li>Designed and implemented a <a href="http://ethanmiller.name/oldsite/notes/test_server_puzzle/">test server deployment system</a> in support of QA testing</li>  <li>Managed group security audit, created Policy/Standards document, and led security brown-bag for staff education.</li> <li>Configured and maintained networked backups with RSnapshot</li> <li>Monitored health of multiple systems using Nagios, Cacti, Munin, and Unix utilities</li> <li>Configured and maintained department DNS server </li> <li>Installed Jenkins, and scripted application integration for various jobs (DB deployments, queued long-running tasks, etc.)</li> <li>Contractor coordination and direction</li>  </li><li>Coordinated regular systems architecture discussion for development staff.</li><li>Released OSS <a href="http://ethanmiller.name/oldsite/notes/jquery_simplemultiselect/">javascript project</a> to web development community.</li> <li>Regular contributor to multiple codebases, both Django/Postgres and PHP/MySQL based.</li> </ul></p> </div>
 		</div>
 		
 		<br clear="all">
@@ -130,7 +126,7 @@
 		May 2010
 		
 		</div>
-		<div class="itemsummary"><p><strong>Virtual State of Jefferson</strong>, with Ethan Ham<br /><ul><li>Co-wrote script to alter text-based resources passing through a proxy</li><li>Configured Squid as the proxy, and Nginx to serve altered content</li><li>Shared a <a href="/oldsite/notes/virtual_state_jefferson_tech/">complete technical description</a> with community.</li></ul></p> <p><a href="/oldsite/projects/virtual_state_jefferson/" class="cvprojlink">The Virtual State of Jefferson project description</a></div>
+		<div class="itemsummary"><p><strong>Virtual State of Jefferson</strong>, with Ethan Ham<br /><ul><li>Co-wrote script to alter text-based resources passing through a proxy</li><li>Configured Squid as the proxy, and Nginx to serve altered content</li><li>Shared a <a href="http://ethanmiller.name/oldsite/notes/virtual_state_jefferson_tech/">complete technical description</a>.</li></ul></p> <p><a href="http://ethanmiller.name/oldsite/projects/virtual_state_jefferson/" class="cvprojlink">The Virtual State of Jefferson project description</a></div>
 		</div>
 		
 		<br clear="all">
@@ -141,7 +137,7 @@
 		Jun 2008
 		
 		</div>
-		<div class="itemsummary"><p><strong>Urban Observatory Visualization</strong>, with Bruce Gardner<br />Circle of Palms, <em>ZERO1</em> - San Jose, CA<br /><span style="font-size:x-small;color:#555;">Supported by : ZERO1 for the 2nd Biennial 01SJ Global Festival of Art on the Edge with the support of the James L. Irvine Foundation. Additional support provided by Montalvo Arts Center.</span><br /><ul><li>Developed interactive installation using four linux based computers and four projectors running a geographic visualization</li><li>Wrote Python (Twisted) based code to keep processes on four computers coordinated</li><li>Wrote code to work with the Panoramio API for grabbing images based on latitude/longitude</li></ul></p> <p><a href="/oldsite/projects/urban_observatory/" class="cvprojlink">Urban Observatory Visualization project description</a></div>
+		<div class="itemsummary"><p><strong>Urban Observatory Visualization</strong>, with Bruce Gardner<br />Circle of Palms, <em>ZERO1</em> - San Jose, CA<br /><span style="font-size:x-small;color:#555;">Supported by : ZERO1 for the 2nd Biennial 01SJ Global Festival of Art on the Edge with the support of the James L. Irvine Foundation. Additional support provided by Montalvo Arts Center.</span><br /><ul><li>Developed interactive installation using four linux based computers and four projectors running a geographic visualization</li><li>Wrote Python (Twisted) based code to keep processes on four computers coordinated</li><li>Wrote code to work with the Panoramio API for grabbing images based on latitude/longitude</li></ul></p> <p><a href="http://ethanmiller.name/oldsite/projects/urban_observatory/" class="cvprojlink">Urban Observatory Visualization project description</a></div>
 		</div>
 		
 		<br clear="all">
@@ -152,7 +148,7 @@
 		Apr 2008
 		
 		</div>
-		<div class="itemsummary"><p><strong>Netbody</strong><br />Intitute of Contemporary Art, <em>LiftOff</em> - San Jose, CA<br /><ul><li>Developed project based on Python/PyCairo and several public API's (Flickr, Technorati, Delicious, and YouTube)</li><li>Rendered project within an EC2 instance, and later compiled a film of the results</li><li>Kept a log file during rendering, which was used later (with Processing) to generate the audio track for the visualization</li></ul></p> <p><a href="/oldsite/projects/netbody_v2/" class="cvprojlink">Netbody V2 project description</a></div>
+		<div class="itemsummary"><p><strong>Netbody</strong><br />Intitute of Contemporary Art, <em>LiftOff</em> - San Jose, CA<br /><ul><li>Developed project based on Python/PyCairo and several public API's (Flickr, Technorati, Delicious, and YouTube)</li><li>Rendered project within an EC2 instance, and later compiled a film of the results</li><li>Kept a log file during rendering, which was used later (with Processing) to generate the audio track for the visualization</li></ul></p> <p><a href="http://ethanmiller.name/oldsite/projects/netbody_v2/" class="cvprojlink">Netbody V2 project description</a></div>
 		</div>
 		
 		<br clear="all">
@@ -163,7 +159,7 @@
 		Nov 2005
 		
 		</div>
-		<div class="itemsummary"><p><strong>SxSW Visualization</strong><br /><ul><li>Designed and created data visualization using XML file for data</li><li>Wrote visualization with Processing</li></ul><a href="http://www.visualcomplexity.com/vc/project_details.cfm?index=180&id=180&domain=">visualcomplexity.com</a>, originally for <a href="http://switch.sjsu.edu/v20/">Switch, issue 20</a></p> </div>
+		<div class="itemsummary"><p><strong>SxSW Visualization</strong><br /><ul><li>Designed and created conference (SxSW) discussion summaries visualization with Processing</li></ul><a href="http://www.visualcomplexity.com/vc/project_details.cfm?index=180&id=180&domain=">visualcomplexity.com</a>, originally for <a href="http://switch.sjsu.edu/v20/">Switch, issue 20</a></p> </div>
 		</div>
 		
 		<br clear="all">
@@ -185,21 +181,10 @@
 		
 		<div class="item">
 		<div class="itemdate">
-		May 2008
-		 - Aug 2008
-		</div>
-		<div class="itemsummary"><p>Tool Shed Days, with <strong>Red76</strong><br />San Jose Museum of Art, <em>01SJ Biennale: Superlight</em> - San Jose CA<br /><ul><li>Developed Welcome to Second Home project website</li><li>Installed and customized Wordpress instance for <a href="http://welcometosecondhome.org/printshop/">Welcome to Second Home Printshop</a></li><li>Wrote integration code for delicious.com, blip.tv, and Yahoo Pipes to produce the <a href="http://welcometosecondhome.org/archive/">Welcome to Second Home Archive</a></li><li>Wrote Javascript and CSS for SecondHome website following aesthetic of Red76 projects</li></ul></p> </div>
-		</div>
-		
-		<br clear="all">
-		
-		
-		<div class="item">
-		<div class="itemdate">
 		Jun 2005
 		 - Jul 2008
 		</div>
-		<div class="itemsummary"><p>On Translation : Social Networks, with <strong>Antoni Muntadas</strong><br />San Jose Convention Center, <em>01SJ</em> - San Jose CA<br />Laboral Centro de Arte, <em>Feedback</em> - Gijon, Spain<br />Museo Nacional Centro de Arte Reina Sofía, <em>Maquinas y Almas</em> - Madrid, Spain<br /><ul><li>Coordinated development process between small group of students, and the artist in residence</li><li>Oversaw code development for the visualization (written in PyGame), and developed server side code for data collection and storage (based on PostgreSQL, Django, Google API)</li><li>Managed timelines and coordinated efforts between contractors (English and Spanish speaking) for the physical installation</li><li>Installed the project in three venues, automated display computer for start-up/shut-down and retrieval of data from the server</li></p> <p><a href="/oldsite/projects/otsn/" class="cvprojlink">On Translation : Social Networks project description</a></div>
+		<div class="itemsummary"><p>On Translation : Social Networks, with <strong>Antoni Muntadas</strong><br />San Jose Convention Center, <em>01SJ</em> - San Jose CA<br />Laboral Centro de Arte, <em>Feedback</em> - Gijon, Spain<br />Museo Nacional Centro de Arte Reina Sofía, <em>Maquinas y Almas</em> - Madrid, Spain<br /><ul><li>Coordinated development process between small group of students, and the artist in residence</li><li>Oversaw code development for the visualization (written in PyGame), and developed server side code for data collection and storage (based on PostgreSQL, Django, Google API)</li><li>Managed timelines and coordinated efforts between contractors (English and Spanish speaking) for the physical installation</li><li>Installed the project in three venues, automated display computer for start-up/shut-down and retrieval of data from the server</li></p> <p><a href="http://ethanmiller.name/oldsite/projects/otsn/" class="cvprojlink">On Translation : Social Networks project description</a></div>
 		</div>
 		
 		<br clear="all">
@@ -246,19 +231,8 @@
 
 
 
-	<br clear="all">
-	<div id="footer">contact : e at ethanmiller dot name</div>
 </div>
 
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-var pageTracker = _gat._getTracker("UA-2095896-1");
-pageTracker._initData();
-pageTracker._trackPageview();
-</script>
 
 </body>
 </html>
