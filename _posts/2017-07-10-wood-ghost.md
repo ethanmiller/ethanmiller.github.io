@@ -4,7 +4,7 @@ title:  "Wood Ghost"
 date:   2017-07-10
 categories:
 ---
-![Example Image](assets/images/wood-ghost-2017-07-10.jpg "Wood Ghost")
+![Example Image](/assets/images/wood-ghost-2017-07-10.jpg "Wood Ghost")
 
 Digital painting
 
